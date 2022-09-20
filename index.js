@@ -58,7 +58,6 @@ app.all('/createuser', function(req,res){
     })
     .catch((error) => {
         res.status(300).send('Errore: ' + error)
-
     });
 })
 
