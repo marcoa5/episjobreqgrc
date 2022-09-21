@@ -106,7 +106,7 @@ app.all('/updateuser', function(req,res){
     .then(()=>res.status(200).json({status:'ok'}))
 })
 
-app.get('/delete',function(req,res){
+app.all('/delete',function(req,res){
     var id = req.query.id
     admin.auth().deleteUser(id)
     .then(()=>{
@@ -152,6 +152,19 @@ app.all('/sendSJNew', cors(), function(req,res){
             })   
         })
     })
+})
+
+app.all('/test', function(req,res){
+    var maName=`\\\\home.intranet.epiroc.com@SSL\\DavWWWRoot\\sites\\cc\\iyc\\MRService\\Documents\\`
+    var a = fs.readFileSync('template/template.html','utf8')
+    var templ = Handlebars.compile(a)
+    let options = {width: '21cm', height: '29.7cm'};
+    let file = {content: templ(req.body)}
+    html_to_pdf.generatePdf(file,options).then((d)=>{
+        fs.writeFileSync(`${maName}__test.pdf`,d)
+        res.status(200).json({staus:'file loaded'})
+    })
+    
 })
 
 app.all('/', function(req, res,next) {
