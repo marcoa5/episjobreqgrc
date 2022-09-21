@@ -130,6 +130,14 @@ app.all('/sjPdf', function(req,res){
     })
 })
 
+app.all('/sjPdfForApproval', function(req,res){
+    let g = req.body
+    createPDFforApproval(g)
+    .then(()=>{
+        res.status(200).json({saved:true})
+    })
+})
+
 app.all('/sendSJNew', cors(), function(req,res){
     let g = req.body
     createPDF(g).then(urlPdf=>{
@@ -186,6 +194,25 @@ function createPDF(b){
             ref.put(Uint8Array.from(Buffer.from(d)).buffer, {contentType: 'application/pdf'})
             .then(()=>{
                 ref.getDownloadURL().then(url=>{
+                    res(url)
+                })
+            })
+        })
+    })
+}
+
+function createPDFforApproval(b){
+    return new Promise((res,rej)=>{
+        var a = fs.readFileSync('template/template.html','utf8')
+        var templ = Handlebars.compile(a)
+        let options = {width: '21cm', height: '29.7cm'};
+        let file = {content: templ(b)}
+        html_to_pdf.generatePdf(file,options).then((d)=>{
+            let ref = firebase.default.storage().ref('Closed/' + b.info.fileName + '.pdf')
+            ref.put(Uint8Array.from(Buffer.from(d)).buffer, {contentType: 'application/pdf'})
+            .then(()=>{
+                ref.getDownloadURL().then(url=>{
+                    console.log('saved')
                     res(url)
                 })
             })
