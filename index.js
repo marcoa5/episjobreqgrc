@@ -65,7 +65,7 @@ app.all('/createuser', function(req,res){
     admin.auth().createUser({
         email: Mail,
         emailVerified: false,
-        password: 'Epiroc2021',
+        password: 'Epiroc2022',
         disabled: false,
     })
     .then((userRecord) => {
