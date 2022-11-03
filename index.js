@@ -1,17 +1,18 @@
-const express = require('express')
-const app = express()
+var express = require('express');
+var app = express();
 var cors = require('cors')
+const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
-const porta = process.env.PORT || 3001
-const ver = require('./package.json').version
+var admin = require("firebase-admin");
 var serviceAccount = require('./key.json')
-const admin = require('firebase-admin')
+const porta = process.env.PORT || 3001
+const axios = require('axios')
 const Handlebars = require("handlebars");
-const fs = require('fs')
-var html_to_pdf = require('html-pdf-node')
+const fs = require('fs');
+var html_to_pdf = require('html-pdf-node');
 const firebase = require('firebase/app')
 require('firebase/storage')
-const nodemailer = require('nodemailer');
+const ver = require('./package.json').version
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',

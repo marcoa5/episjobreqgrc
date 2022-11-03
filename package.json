@@ -1,13 +1,14 @@
 {
-  "name": "episjobreqgrc",
-  "version": "1.0.6",
+  "name": "post",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Marco Arato",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
