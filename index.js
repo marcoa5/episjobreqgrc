@@ -125,7 +125,6 @@ app.all('/sjPdf', function(req,res){
     var templ = Handlebars.compile(a)    
     let options = {width: '21cm', height: '29.7cm'};
     let file = {content: templ(req.body)}
-    res.send(file)
     html_to_pdf.generatePdf(file).then((d)=>{
         res.end(d)
     })
