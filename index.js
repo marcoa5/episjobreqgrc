@@ -41,7 +41,6 @@ admin.initializeApp({
 app.use(cors())
 app.use(bodyParser.urlencoded({limit: '50000kb',extended: true}))
 app.use(bodyParser.json({limit: '50000kb'}))
-app.use(express.static(__dirname + '/template'))
 
 app.all('/getusers', function(req,res){
     admin.auth().listUsers(1000).then((a)=>{
@@ -123,11 +122,12 @@ app.all('/delete',function(req,res){
 
 app.all('/sjPdf', function(req,res){
     var a = fs.readFileSync('./template.html','utf8')
+    res.send(a)
     var templ = Handlebars.compile(a)    
     let options = {width: '21cm', height: '29.7cm'};
     let file = {content: templ(req.body)}
     html_to_pdf.generatePdf(file,options).then((d)=>{
-        res.status(200).send(d)
+        res.end(d)
     })
 })
 
