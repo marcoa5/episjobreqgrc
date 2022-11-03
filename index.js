@@ -123,7 +123,7 @@ app.all('/delete',function(req,res){
 
 app.all('/sjPdf', function(req,res){
     res.send(req.body)
-    var a = fs.readFileSync('template/template.html','utf8')
+    var a = fs.readFileSync('./template.html','utf8')
     var templ = Handlebars.compile(a)
     
     
@@ -189,7 +189,7 @@ app.listen(porta, ()=>{
 
 function createPDF(b){
     return new Promise((res,rej)=>{
-        var a = fs.readFileSync('template/template.html','utf8')
+        var a = fs.readFileSync('./template.html','utf8')
         var templ = Handlebars.compile(a)
         let options = {width: '21cm', height: '29.7cm'};
         let file = {content: templ(b)}
@@ -207,7 +207,7 @@ function createPDF(b){
 
 function createPDFforApproval(b){
     return new Promise((res,rej)=>{
-        var a = fs.readFileSync('template/template.html','utf8')
+        var a = fs.readFileSync('./template.html','utf8')
         var templ = Handlebars.compile(a)
         let options = {width: '21cm', height: '29.7cm'};
         let file = {content: templ(b)}
