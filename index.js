@@ -121,7 +121,7 @@ app.all('/delete',function(req,res){
     })
 })
 
-app.all('/sjPdf', cors(), function(req,res){
+app.all('/sjPdf', function(req,res){
     console.log(req.body)
     var a = fs.readFileSync('template/template.html','utf8')
     var templ = Handlebars.compile(a)
