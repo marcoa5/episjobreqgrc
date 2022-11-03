@@ -222,13 +222,13 @@ function createPDFforApproval(b){
 
 function createMailOptionsNew(a){
     let cc=[]
-    cc.push('dimitris.nikolakopoulos.epiroc.com')
+    cc.push('dimitris.nikolakopoulos.epiroc.com','marco.arato@epiroc.com')
     if(!cc.includes(a.info.ccAuth)) cc.push(a.info.ccAuth)
     let tech= a.author
     const mailOptionsNew = {
-            from: `${a.author} - Epiroc Service <episerjob@gmail.com>`,
+            from: `${a.author} - Epiroc Service GRC <episerjob@gmail.com>`,
             replyTo: 'dimitris.nikolakopoulos@epiroc.com',
-            to: 'marco.arato@epiroc.com',//a.elencomail,
+            to: a.elencomail,
             cc: a.info.cc? cc.join(';'):'',
             subject: a.info.subject,
             text: `Please find attached Service Job by Epiroc techinician Mr. ${tech}.\nThank you for completing the survey.\n\n\nSurvey Results:\n\nPlanning: ${a.rissondaggio.split('')[0]}\nParts Delivery: ${a.rissondaggio.split('')[1]}\nExecution: ${a.rissondaggio.split('')[2]}`,
