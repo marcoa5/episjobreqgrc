@@ -123,9 +123,9 @@ app.all('/delete',function(req,res){
 app.all('/sjPdf', function(req,res){
     var a = fs.readFileSync('./template.html','utf8')
     var templ = Handlebars.compile(a)    
-    res.send(templ({}))
     let options = {width: '21cm', height: '29.7cm'};
     let file = {content: templ(req.body)}
+    res.send(file)
     html_to_pdf.generatePdf(file,options).then((d)=>{
         res.end(d)
     })
