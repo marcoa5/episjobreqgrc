@@ -121,7 +121,7 @@ app.all('/delete',function(req,res){
     })
 })
 
-app.all('/sjPdf', cors(), function(req,res){
+app.all('/sjPdf', function(req,res){
     var a = fs.readFileSync('template/template.html','utf8')
     var templ = Handlebars.compile(a)
     let options = {width: '21cm', height: '29.7cm'};
@@ -139,7 +139,7 @@ app.all('/sjPdfForApproval', function(req,res){
     })
 })
 
-app.all('/sendSJNew', cors(), function(req,res){
+app.all('/sendSJNew', function(req,res){
     let g = req.body
     createPDF(g).then(urlPdf=>{
         g.info.urlPdf = urlPdf
