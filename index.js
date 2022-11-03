@@ -39,6 +39,11 @@ admin.initializeApp({
     databaseURL: "https://episjobadmingrc-default-rtdb.europe-west1.firebasedatabase.app",
   });
 
+  const browser = await puppeteer.launch({
+    headless:false,
+    args: ["--no-sandbox"]
+});
+
 app.use(cors())
 app.use(bodyParser.urlencoded({limit: '50000kb',extended: true}))
 app.use(bodyParser.json({limit: '50000kb'}))
