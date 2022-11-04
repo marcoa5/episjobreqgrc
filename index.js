@@ -1,17 +1,18 @@
-const express = require('express')
-const app = express()
+var express = require('express');
+var app = express();
 var cors = require('cors')
+const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
-const porta = process.env.PORT || 3000
-const ver = require('./package.json').version
+var admin = require("firebase-admin");
 var serviceAccount = require('./key.json')
-const admin = require('firebase-admin')
+const porta = process.env.PORT || 3001
+const axios = require('axios')
 const Handlebars = require("handlebars");
-const fs = require('fs')
-var html_to_pdf = require('html-pdf-node')
+const fs = require('fs');
+var html_to_pdf = require('html-pdf-node');
 const firebase = require('firebase/app')
 require('firebase/storage')
-const nodemailer = require('nodemailer');
+const ver = require('./package.json').version
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -41,7 +42,7 @@ admin.initializeApp({
 app.use(cors())
 app.use(bodyParser.urlencoded({limit: '50000kb',extended: true}))
 app.use(bodyParser.json({limit: '50000kb'}))
-app.use(express.static(__dirname + '/template'))
+app.use(express.static(__dirname + '/template'));
 
 app.all('/getusers', function(req,res){
     admin.auth().listUsers(1000).then((a)=>{
@@ -123,11 +124,12 @@ app.all('/delete',function(req,res){
 
 app.all('/sjPdf', function(req,res){
     var a = fs.readFileSync('template/template.html','utf8')
-    var templ = Handlebars.compile(a)
+    var templ = Handlebars.compile(a)    
     let options = {width: '21cm', height: '29.7cm'};
     let file = {content: templ(req.body)}
     html_to_pdf.generatePdf(file,options).then((d)=>{
-        res.status(200).send(d)
+        if(d) res.end(d)
+        res.send('error')
     })
 })
 
