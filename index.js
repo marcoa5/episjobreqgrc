@@ -147,7 +147,7 @@ app.all('/sendSJNew', function(req,res){
             g.info.ccAuth = user.email
             transporter.sendMail(createMailOptionsNew(g), (error, info)=>{
                 if (error) res.status(300).send(error)
-                if(info) {
+                if (info) {
                     res.status(200).json({mailResult: info})             
                 }
             })   
@@ -223,7 +223,8 @@ function createPDFforApproval(b){
 
 function createMailOptionsNew(a){
     let cc=[]
-    cc.push('dimitris.nikolakopoulos.epiroc.com','marco.arato@epiroc.com')
+    cc.push('dimitris.nikolakopoulos@epiroc.com')
+    cc.push('marco.arato@epiroc.com')
     if(!cc.includes(a.info.ccAuth)) cc.push(a.info.ccAuth)
     let tech= a.author
     const mailOptionsNew = {
